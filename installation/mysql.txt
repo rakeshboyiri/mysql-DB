@@ -1,0 +1,50 @@
+Follow This Steps to install Mysql-DB in linux/Ubuntu
+
+Step-1: update 
+
+$ sudo apt-get update
+
+
+step-2 : install mysql-server
+
+$ sudo apt-get install mysql-server
+
+
+step-3 : run this below command , if it shows status as running , mysql successully running
+
+$ sudo systemctl status mysql.service
+
+
+step-4 : run below command 
+
+$ sudo mysql
+
+
+step-5 : run below command 
+
+$ exit
+
+step-6 : close and open new terminal ,
+	run below command 
+	$ sudo mysql
+	paste below text in mysql
+
+$ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+
+Note : Remember your root password set as root
+
+step-7 : run below command 
+$ sudo mysql_secure_installation 
+
+step-8 : Enter the root password
+
+step-9 : run below command 
+$ sudo mysql -u root -p
+
+step 10 : Enter the root passsword
+
+step-11 : run below command
+$ sudo snap install mysql-workbench-community
+
+--> if asks any permissions click any y/n your wish 
+You are successfully installed all the pacakges , ready to use ...

@@ -1,3 +1,55 @@
+DATABASE NAME : PROJECT1
+TABLES AVAILABLE :
+1)SAILORS
+2)RESERVES
+3)BOATS
+
+SAILORS TABLE :
++-----+---------+--------+------+
+| SID | SNAME   | RATING | AGE  |
++-----+---------+--------+------+
+|  22 | DUSTIN  |      7 |   45 |
+|  29 | BRUTUS  |      1 |   33 |
+|  31 | LUBBER  |      8 | 55.5 |
+|  32 | ANDY    |      8 | 25.5 |
+|  58 | RUSTY   |     10 |   35 |
+|  64 | HORATIO |      7 |   35 |
+|  71 | ZOBRA   |     10 |   16 |
+|  74 | HORATIO |      9 |   40 |
+|  85 | ART     |      3 | 25.5 |
+|  95 | BOB     |      3 | 63.5 |
++-----+---------+--------+------+
+
+
+RESERVES TABLE :
++-----+-----+------------+
+| SID | BID | DAY        |
++-----+-----+------------+
+|  22 | 101 | 1998-10-10 |
+|  22 | 102 | 1998-10-10 |
+|  22 | 103 | 1998-10-08 |
+|  22 | 104 | 1998-10-07 |
+|  31 | 102 | 1998-11-10 |
+|  31 | 103 | 1998-11-06 |
+|  31 | 104 | 1998-11-12 |
+|  64 | 101 | 1998-09-05 |
+|  64 | 102 | 1998-09-08 |
+|  74 | 103 | 1998-09-08 |
++-----+-----+------------+
+
+BOATS:
++------+-----------+-------+
+| BID  | BNAME     | COLOR |
++------+-----------+-------+
+|  101 | INTERLAKE | BLUE  |
+|  102 | INTERLAKE | RED   |
+|  103 | CLIPPER   | GREEN |
+|  104 | MARINE    | RED   |
++------+-----------+-------+
+
+---------------------------------------------------------------------------
+SOME QUERYS FROM ABOVE 3 TABLES
+
 1 ) DISPLAY ALL THE NAMES OF THE SAILORS 
 mysql>SELECT SNAME FROM SAILORS;
 
@@ -484,14 +536,43 @@ mysql> SELECT * FROM SAILORS S ,RESERVES R WHERE S.SID = R.SID AND R.BID=103;
 +-----+---------+--------+------+-----+-----+------------+
 3 rows in set (0.00 sec)
 
-35)
+35) DISPLAY COLORS OF BOATS RESERVED BY "LUBBER" 
+
+mysql> SELECT COLOR FROM BOATS WHERE BID IN(SELECT BID FROM RESERVES WHERE SID IN((SELECT SID FROM SAILORS WHERE SNAME="LUBBER")));
+
+
++-------+
+| COLOR |
++-------+
+| RED   |
+| GREEN |
+| RED   |
++-------+
+3 rows in set (0.01 sec)
+
+36) DISPLSY BOST IDS WHICH ARE NOT RESERVED BY LUBBER
+
+mysql> SELECT BID FROM RESERVES WHERE SID NOT IN (SELECT SID FROM SAILORS WHERE SNAME="LUBBER");
+
++-----+
+| BID |
++-----+
+| 101 |
+| 102 |
+| 103 |
+| 104 |
+| 101 |
+| 102 |
+| 103 |
++-----+
+7 rows in set (0.00 sec)
 
 
 
 
 
 
-
+-----------------------------------------------------------------------------------------------
 
 mysql> SELECT SNAME FROM SAILORS S , RESERVES R1 ,RESERVES R2 WHERE S.SID = R1.SID AND R1.SID = R2.SID AND R1.BID!=R2.BID;
 
